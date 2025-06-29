@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi dengan user (user_id)
             $table->string('title'); // Judul tugas
             $table->text('description')->nullable(); // Deskripsi tugas (opsional)
-            $table->enum('status', ['pending', 'completed'])->default('pending'); // Status tugas
+            $table->string('status'); // Judul tugas
             $table->timestamp('due_date')->nullable(); // Tanggal jatuh tempo (opsional)
             $table->timestamps();
         });

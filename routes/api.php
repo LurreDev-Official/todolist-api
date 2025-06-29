@@ -15,14 +15,9 @@ use App\Http\Controllers\ApiController;
 |
 */
 
-Route::group(['prefix' => 'auth'], function() {
-    // Registrasi pengguna
-    Route::post('register', [ApiController::class, 'register']);
-    
+Route::post('register', [ApiController::class, 'register']);
     // Login pengguna
-    Route::post('login', [ApiController::class, 'login']);
-});
-
+Route::post('login', [ApiController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function() {
     // CRUD task (hanya bisa diakses oleh pengguna yang sudah login)
     Route::get('tasks', [ApiController::class, 'getTasks']);  // Mendapatkan daftar tugas

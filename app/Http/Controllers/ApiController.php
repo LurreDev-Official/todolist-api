@@ -31,9 +31,10 @@ class ApiController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $token = $user->createToken('LaravelAuthApp')->plainTextToken;
         return response()->json([
             'message' => 'User successfully registered!',
-            'user' => $user,
+            'token' => $token,
         ], 201);
     }
 
@@ -54,7 +55,7 @@ class ApiController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('LaravelAuthApp')->plainTextToken;
-            return response()->json(['token' => $token], 200);
+            return response()->json(['token' => $token], 201);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401);
@@ -73,7 +74,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'required|in:pending,completed',
+            'status' => 'required',
             'due_date' => 'nullable|date',
         ]);
 
@@ -104,7 +105,7 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'status' => 'nullable|in:pending,completed',
+            'status' => 'nullable',
             'due_date' => 'nullable|date',
         ]);
 
